@@ -7,7 +7,7 @@ class HelpdeskTicketExtension(models.Model):
     partner_house_number = fields.Char(string='Hausnummer', tracking=True, required=True)
     partner_phone = fields.Char(string='Telefon', tracking=True, required=True)
     partner_data_protection = fields.Boolean(string='Datenschutz', tracking=True, required=True)
-    partner_first_name = fields.Char(string='Vorname', tracking=True)
+    partner_first_name = fields.Char(string='Vorname', tracking=True, required=True)
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
