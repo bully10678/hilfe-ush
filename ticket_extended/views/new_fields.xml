@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="category_test_form_view">
+            <field name="name">helpdesk.ticket.extension</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_email']" position="after">
+                    <field name="partner_first_name"/>
+                    <field name="partner_street"/>
+                    <field name="partner_house_number"/>
+                    <field name="partner_phone"/>
+                    <field name="partner_data_protection"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
