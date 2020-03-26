@@ -3,10 +3,10 @@ from odoo import api, models, fields
 class HelpdeskTicketExtension(models.Model):
     _inherit='helpdesk.ticket'
 
-    partner_street = fields.Char(string='Straße', tracking=True)
-    partner_house_number = fields.Char(string='Hausnummer', tracking=True)
-    partner_phone = fields.Char(string='Telefon', tracking=True)
-    partner_data_protection = fields.Boolean(string='Datenschutz', tracking=True)
+    partner_street = fields.Char(string='Straße', tracking=True, required=True)
+    partner_house_number = fields.Char(string='Hausnummer', tracking=True, required=True)
+    partner_phone = fields.Char(string='Telefon', tracking=True, required=True)
+    partner_data_protection = fields.Boolean(string='Datenschutz', tracking=True, required=True)
     partner_first_name = fields.Char(string='Vorname', tracking=True)
 
     @api.onchange('partner_id')
