@@ -1,22 +1,24 @@
 from odoo import api, models, fields
 
+
 class HelpdeskTicketExtension(models.Model):
-    _inherit='helpdesk.ticket'
+    _inherit = 'helpdesk.ticket'
 
     partner_street = fields.Char(string='Straße', tracking=True, required=True, store=True)
     partner_house_number = fields.Char(string='Hausnummer', tracking=True, required=True, store=True)
     partner_phone = fields.Char(string='Telefon', tracking=True, required=True, store=True)
     partner_data_protection = fields.Boolean(string='Datenschutz', tracking=True, required=True, store=True)
     partner_first_name = fields.Char(string='Vorname', tracking=True, required=True, store=True)
-    partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True, store=True)
+    partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True,
+                                     store=True)
 
     @api.model
-    def handleTeamType(self):
+    def handle_team_type(self):
         # information taken out of the db, adjust if needed
         team_name = "Helfermeldungen"
         tag_name = "Helfer"
-        #help_alerts_id = 8
-        #volunteer_id = 5
+        # help_alerts_id = 8
+        # volunteer_id = 5
         team_obj = self.pool.get('helpdesk.team')
         tag_obj = self.pool.get('helpdesk.tag')
         res_teams = team_obj.search([('name', '=', team_name)])
@@ -31,7 +33,8 @@ class HelpdeskTicketExtension(models.Model):
         return result_teams or result_teams[0] or False
 
     _defaults = {
-        'tag_ids':handleTeamType
+        'tag_ids': 5,
+        'description': 'Default description'
     }
 
     @api.onchange('partner_id')
@@ -44,7 +47,7 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_first_name = self.partner_id.x_first_name
             self.partner_trusted = self.partner_id.x_contact_trusted
 
-    def saveCustomerInfo(self):
+    def save_customer_info(self):
         self.partner_id.street = self.partner_street
         self.partner_id.x_house_number = self.partner_house_number
         self.partner_id.phone = self.partner_phone
@@ -52,17 +55,7 @@ class HelpdeskTicketExtension(models.Model):
         self.partner_id.x_first_name = self.partner_first_name
         self.partner_id.x_contact_trusted = self.partner_trusted
 
-
-
     def write(self, values):
         res = super(HelpdeskTicketExtension, self).write(values)
-        self.saveCustomerInfo()
+        self.save_customer_info()
         return res
-
-
-
-
-
-
-
-
