@@ -30,10 +30,4 @@ class HelpdeskTicketExtension(models.Model):
         self.partner_id.x_contact_trusted = self.partner_trusted
         return res
 
-class ContactFormExtension(models.Model):
-    _inherit='res.partner'
-
-    company_type = fields.Selection(string='Company Type',
-                                    selection=[('person', 'Individual'), ('company', 'Company')],
-                                    compute='_compute_company_type', inverse='_write_company_type', default='person')
 
