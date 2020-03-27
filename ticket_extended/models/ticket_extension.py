@@ -38,8 +38,8 @@ class HelpdeskTicketExtension(models.Model):
 
     def write(self, values):
         res = super(HelpdeskTicketExtension, self).write(values)
-        self.saveCustomerInfo(self)
-        #self.handleTeamType(self)
+        self.saveCustomerInfo()
+        self.handleTeamType()
         return res
 
 
