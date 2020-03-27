@@ -42,7 +42,6 @@ class HelpdeskTicketExtension(models.Model):
         #self.handleTeamType(self)
         return res
 
-    handleTeamType()
 
 
 
