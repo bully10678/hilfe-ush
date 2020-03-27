@@ -12,7 +12,7 @@ class HelpdeskTicketExtension(models.Model):
     partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True,
                                      store=True)
 
-    tag_ids2 = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
+    tag_ids2 = fields.Many2many('helpdesk.tag', string='Tags')
     tag_ids2 = [(4, 5)]
 
     @api.model
