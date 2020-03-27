@@ -12,7 +12,6 @@
                     <field name="partner_phone"/>
                     <field name="partner_data_protection"/>
                     <field name="partner_trusted"/>
-                    <field name="tag_ids2"/>
                 </xpath>
             </field>
         </record>

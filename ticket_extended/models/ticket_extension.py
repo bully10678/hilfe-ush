@@ -32,7 +32,7 @@ class HelpdeskTicketExtension(models.Model):
 
         return result_tags or False
 
-    tag_ids2 = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
+    tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
