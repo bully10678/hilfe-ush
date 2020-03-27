@@ -21,8 +21,8 @@ class HelpdeskTicketExtension(models.Model):
         # volunteer_id = 5
         team_obj = self.pool.get('helpdesk.team')
         tag_obj = self.pool.get('helpdesk.tag')
-        res_teams = team_obj.search([('name', '=', team_name)])
-        res_tags = tag_obj.search([('name', '=', tag_name)])
+        res_teams = team_obj.search(args=[('name', '=', team_name)])
+        res_tags = tag_obj.search(args=[('name', '=', tag_name)])
         result_teams = []
         result_tags = []
         for eachid in res_teams:
