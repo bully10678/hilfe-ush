@@ -12,9 +12,6 @@ class HelpdeskTicketExtension(models.Model):
     partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True,
                                      store=True)
 
-    tag_ids2 = fields.Many2many('helpdesk.tag', string='Tags')
-    tag_ids2 = [(4, 5)]
-
     @api.model
     def handle_team_type(self):
         # information taken out of the db, adjust if needed
@@ -34,6 +31,8 @@ class HelpdeskTicketExtension(models.Model):
             result_tags.append(eachid)
 
         return result_tags or False
+
+    tag_ids2 = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
