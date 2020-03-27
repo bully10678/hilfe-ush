@@ -9,6 +9,7 @@ class HelpdeskTicketExtension(models.Model):
     partner_data_protection = fields.Boolean(string='Datenschutz', tracking=True, required=True, store=True)
     partner_first_name = fields.Char(string='Vorname', tracking=True, required=True, store=True)
     partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True, store=True)
+    description = team_id
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
@@ -41,7 +42,7 @@ class HelpdeskTicketExtension(models.Model):
         self.saveCustomerInfo()
         return res
 
-    handleTeamType()
+
 
 
 
