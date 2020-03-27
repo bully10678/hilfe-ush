@@ -13,16 +13,26 @@ class HelpdeskTicketExtension(models.Model):
     @api.model
     def handleTeamType(self):
         # information taken out of the db, adjust if needed
-        self.description = self.team_id
-        help_alerts_id = 8
-        volunteer_id = 5
-        if self.team_id == help_alerts_id:
-            # return [(4, volunteer_id)]
-            return 4
-        else:
-            return None
-        
-    tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=handleTeamType)
+        team_name = "Helfermeldungen"
+        tag_name = "Helfer"
+        #help_alerts_id = 8
+        #volunteer_id = 5
+        team_obj = self.pool.get('helpdesk.team')
+        tag_obj = self.pool.get('helpdesk.tag')
+        res_teams = team_obj.search([('name', '=', team_name)])
+        res_tags = tag_obj.search([('name', '=', tag_name)])
+        result_teams = []
+        result_tags = []
+        for eachid in res_teams:
+            result_teams.append(eachid)
+        for eachid in res_tags:
+            result_tags.append(eachid)
+
+        return result_teams or result_teams[0] or False
+
+    _defaults = {
+        'tag_ids':handleTeamType
+    }
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
