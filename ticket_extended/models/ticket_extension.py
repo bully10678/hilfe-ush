@@ -20,14 +20,28 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_first_name = self.partner_id.x_first_name
             self.partner_trusted = self.partner_id.x_contact_trusted
 
-    def write(self, values):
-        res = super(HelpdeskTicketExtension, self).write(values)
+    def saveCustomerInfo(self):
         self.partner_id.street = self.partner_street
         self.partner_id.x_house_number = self.partner_house_number
         self.partner_id.phone = self.partner_phone
         self.partner_id.x_data_protection = self.partner_data_protection
         self.partner_id.x_first_name = self.partner_first_name
         self.partner_id.x_contact_trusted = self.partner_trusted
+
+    def handleTeamType(self):
+        #information taken out of the db, adjust if needed
+        help_alerts_id = 8
+        volunteer_id = 5
+        if(self.team_id == help_alerts_id):
+            self.tag_ids = [(4, volunteer_id)]
+
+    def write(self, values):
+        res = super(HelpdeskTicketExtension, self).write(values)
+        self.saveCustomerInfo(self)
+        self.handleTeamType(self)
         return res
+
+
+
 
 
