@@ -30,6 +30,7 @@ class HelpdeskTicketExtension(models.Model):
 
     def handleTeamType(self):
         #information taken out of the db, adjust if needed
+        self.description = self.team_id + ' ' + self.tag_ids
         help_alerts_id = 8
         volunteer_id = 5
         if self.team_id == help_alerts_id:
@@ -41,7 +42,6 @@ class HelpdeskTicketExtension(models.Model):
         #self.handleTeamType(self)
         return res
 
-    description = team_id + ' ' + tag_ids
     handleTeamType()
 
 
