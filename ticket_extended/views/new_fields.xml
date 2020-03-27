@@ -11,6 +11,7 @@
                     <field name="partner_house_number"/>
                     <field name="partner_phone"/>
                     <field name="partner_data_protection"/>
+                    <field name="partner_trusted"/>
                 </xpath>
             </field>
         </record>
