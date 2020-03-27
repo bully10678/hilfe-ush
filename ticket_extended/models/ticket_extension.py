@@ -30,7 +30,7 @@ class HelpdeskTicketExtension(models.Model):
         for eachid in res_tags:
             result_tags.append(eachid)
 
-        return result_tags or False
+        return result_tags[0] or False
 
     tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
 
