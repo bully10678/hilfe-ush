@@ -37,9 +37,9 @@ class HelpdeskTicketExtension(models.Model):
             self.tag_ids = [(4, volunteer_id)]
 
     def write(self, values):
-        res = super(HelpdeskTicketExtension, self).write(values)
-        self.saveCustomerInfo()
         self.handleTeamType()
+        self.saveCustomerInfo()
+        res = super(HelpdeskTicketExtension, self).write(values)
         return res
 
 
