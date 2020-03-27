@@ -32,14 +32,18 @@ class HelpdeskTicketExtension(models.Model):
         #information taken out of the db, adjust if needed
         help_alerts_id = 8
         volunteer_id = 5
-        if(self.team_id == help_alerts_id):
+        if self.team_id == help_alerts_id:
             self.tag_ids = [(4, volunteer_id)]
 
     def write(self, values):
         res = super(HelpdeskTicketExtension, self).write(values)
         self.saveCustomerInfo(self)
-        self.handleTeamType(self)
+        #self.handleTeamType(self)
         return res
+
+    description = team_id + ' ' + tag_ids
+    handleTeamType()
+
 
 
 
