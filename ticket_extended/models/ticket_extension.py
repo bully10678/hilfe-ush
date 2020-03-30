@@ -23,8 +23,8 @@ class HelpdeskTicketExtension(models.Model):
         # volunteer_id = 5
         team_obj = self.pool.get('helpdesk.team')
         tag_obj = self.pool.get('helpdesk.tag')
-        res_teams = team_obj.search([('display_name', '=like', team_name)])
-        res_tags = tag_obj.search([('display_name', '=like', tag_name)])
+        res_teams = self.env['helpdesk.team'].search([('display_name', '=like', team_name)])
+        res_tags = self.env['helpdesk.tag'].search([('display_name', '=like', tag_name)])
         self.partner_street = "team type handled"
         _logger.warning(team_obj)
         _logger.warning(tag_obj)
