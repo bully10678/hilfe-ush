@@ -31,8 +31,8 @@ class HelpdeskTicketExtension(models.Model):
             result_tags.append(eachid)
         _logger.warning(result_teams)
         _logger.warning(result_tags)
-        _logger.warning(self.team_id)
-        if res_teams and len(res_teams) == 1 and self.team_id == result_teams[0]:
+        _logger.warning(self.team_id.id)
+        if res_teams and len(res_teams) == 1 and self.team_id == result_teams[0].id:
             return result_tags[0] or False
         else:
             return False
