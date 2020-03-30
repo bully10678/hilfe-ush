@@ -21,21 +21,20 @@ class HelpdeskTicketExtension(models.Model):
         tag_name = "Helfer"
         # help_alerts_id = 8
         # volunteer_id = 5
-        team_obj = self.pool.get('helpdesk.team')
-        tag_obj = self.pool.get('helpdesk.tag')
         res_teams = self.env['helpdesk.team'].search([('name', '=like', team_name)])
         res_tags = self.env['helpdesk.tag'].search([('name', '=like', tag_name)])
-        self.partner_street = "team type handled"
-        _logger.warning(team_obj)
-        _logger.warning(tag_obj)
+        # _logger.warning(team_obj)
+        # _logger.warning(tag_obj)
         result_teams = []
         result_tags = []
         for eachid in res_teams:
             result_teams.append(eachid)
         for eachid in res_tags:
             result_tags.append(eachid)
-
-        return result_tags[0] or False
+        if res_teams and len(res_teams) == 1 and self.team_id == res_teams[0]:
+            return result_tags[0] or False
+        else:
+            return False
 
     tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
 
