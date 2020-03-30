@@ -23,15 +23,16 @@ class HelpdeskTicketExtension(models.Model):
         # volunteer_id = 5
         res_teams = self.env['helpdesk.team'].search([('name', '=like', team_name)])
         res_tags = self.env['helpdesk.tag'].search([('name', '=like', tag_name)])
-        # _logger.warning(team_obj)
-        # _logger.warning(tag_obj)
         result_teams = []
         result_tags = []
         for eachid in res_teams:
             result_teams.append(eachid)
         for eachid in res_tags:
             result_tags.append(eachid)
-        if res_teams and len(res_teams) == 1 and self.team_id == res_teams[0]:
+        _logger.warning(result_teams)
+        _logger.warning(result_tags)
+        _logger.warning(self.team_id)
+        if res_teams and len(res_teams) == 1 and self.team_id == result_teams[0]:
             return result_tags[0] or False
         else:
             return False
