@@ -14,6 +14,7 @@ class HelpdeskTicketExtension(models.Model):
     partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True,
                                      store=True)
 
+
     @api.model
     def handle_team_type(self):
         # information taken out of the db, adjust if needed
@@ -32,12 +33,14 @@ class HelpdeskTicketExtension(models.Model):
         _logger.warning(result_teams)
         _logger.warning(result_tags)
         _logger.warning(self.team_id.id)
-        if res_teams and len(res_teams) == 1 and self.team_id == result_teams[0].id:
+        if res_teams and len(res_teams) == 1 and self.team_id.id == result_teams[0].id:
             return result_tags[0] or False
         else:
             return False
 
-    tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
+    @api.onchange('team_id')
+    def _on_change_team_id(self):
+        tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=self.handle_team_type)
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
