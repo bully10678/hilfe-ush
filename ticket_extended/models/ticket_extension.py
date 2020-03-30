@@ -38,10 +38,10 @@ class HelpdeskTicketExtension(models.Model):
         else:
             return False
 
-    @api.onchange('team_id')
-    def _onchange_team_id_init_tags(self):
-        if self.handle_team_type():
-            self.tag_ids = [(4,self.handle_team_type().id)]
+    # @api.onchange('team_id')
+    # def _onchange_team_id_init_tags(self):
+    #     if self.handle_team_type():
+    #         self.tag_ids = [(4,self.handle_team_type().id)]
 
 
     @api.onchange('partner_id')
