@@ -1,5 +1,7 @@
+import logging
 from odoo import api, models, fields
 
+_logger = logging.getLogger(__name__)
 
 class HelpdeskTicketExtension(models.Model):
     _inherit = 'helpdesk.ticket'
@@ -12,6 +14,7 @@ class HelpdeskTicketExtension(models.Model):
     partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True,
                                      store=True)
 
+
     @api.model
     def handle_team_type(self):
         # information taken out of the db, adjust if needed
@@ -19,20 +22,27 @@ class HelpdeskTicketExtension(models.Model):
         tag_name = "Helfer"
         # help_alerts_id = 8
         # volunteer_id = 5
-        team_obj = self.pool.get('helpdesk.team')
-        tag_obj = self.pool.get('helpdesk.tag')
-        res_teams = team_obj.search(self,[('display_name', '=like', team_name)])
-        res_tags = tag_obj.search(self,[('display_name', '=like', tag_name)])
+        res_teams = self.env['helpdesk.team'].search([('name', '=like', team_name)])
+        res_tags = self.env['helpdesk.tag'].search([('name', '=like', tag_name)])
         result_teams = []
         result_tags = []
         for eachid in res_teams:
             result_teams.append(eachid)
         for eachid in res_tags:
             result_tags.append(eachid)
+        _logger.warning(result_teams)
+        _logger.warning(result_tags)
+        _logger.warning(self.team_id.id)
+        if res_teams and len(res_teams) == 1 and self.team_id.id == result_teams[0].id:
+            return result_tags[0] or False
+        else:
+            return False
 
-        return result_tags[0] or False
+    @api.onchange('team_id')
+    def _onchange_team_id_init_tags(self):
+        if self.handle_team_type():
+            self.tag_ids = [(4,self.handle_team_type().id)]
 
-    #tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
