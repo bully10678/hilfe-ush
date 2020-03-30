@@ -26,8 +26,8 @@ class HelpdeskTicketExtension(models.Model):
         res_teams = team_obj.search(self,[('display_name', '=like', team_name)])
         res_tags = tag_obj.search(self,[('display_name', '=like', tag_name)])
         self.partner_street = "team type handled"
-        _logger.warning(res_teams)
-        _logger.warning(res_tags)
+        _logger.warning(team_obj)
+        _logger.warning(tag_obj)
         result_teams = []
         result_tags = []
         for eachid in res_teams:
