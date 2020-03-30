@@ -1,5 +1,7 @@
+import logging
 from odoo import api, models, fields
 
+_logger = logging.getLogger(__name__)
 
 class HelpdeskTicketExtension(models.Model):
     _inherit = 'helpdesk.ticket'
@@ -21,6 +23,8 @@ class HelpdeskTicketExtension(models.Model):
         # volunteer_id = 5
         team_obj = self.pool.get('helpdesk.team')
         tag_obj = self.pool.get('helpdesk.tag')
+        _logger.info(team_obj)
+        _logger.info(tag_obj)
         res_teams = team_obj.search(self,[('display_name', '=like', team_name)])
         res_tags = tag_obj.search(self,[('display_name', '=like', tag_name)])
         result_teams = []
@@ -32,7 +36,7 @@ class HelpdeskTicketExtension(models.Model):
 
         return result_tags[0] or False
 
-    #tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
+    tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=handle_team_type)
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
