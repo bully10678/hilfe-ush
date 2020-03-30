@@ -40,7 +40,7 @@ class HelpdeskTicketExtension(models.Model):
 
     @api.onchange('team_id')
     def _on_change_team_id(self):
-        tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=self.handle_team_type)
+        self.tag_ids = fields.Many2many('helpdesk.tag', string='Tags', default=self.handle_team_type)
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
