@@ -61,6 +61,7 @@ class HelpdeskTicketExtension(models.Model):
         self.partner_id.x_data_protection = self.partner_data_protection
         self.partner_id.x_first_name = self.partner_first_name
         self.partner_id.x_contact_trusted = self.partner_trusted
+        self.partner_id.email = self.partner_email
 
     def write(self, values):
         res = super(HelpdeskTicketExtension, self).write(values)
