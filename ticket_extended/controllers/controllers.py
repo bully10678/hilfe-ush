@@ -1,4 +1,4 @@
-from odoo.addons.website_helpdesk_form.controllers.controllers import WebsiteForm
+from enterprise.addons.website_helpdesk_form.controllers.controllers import WebsiteForm
 from odoo import http
 from odoo.http import request
 
