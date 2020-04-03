@@ -69,6 +69,7 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_id.email = self.partner_email
         else:
             if self.partner_name:
+                _logger.warning("CALLED CREATE")
                 self.partner_id = self.env['res.partner'].create({
                     'name' : self.partner_name,
                     'street' : self.partner_street,
@@ -84,6 +85,5 @@ class HelpdeskTicketExtension(models.Model):
     def create(self, values):
         res = super(HelpdeskTicketExtension, self).create(values)
         self.save_customer_info()
-        _logger.warning("CALLED CREATE")
         return res
 
