@@ -48,7 +48,7 @@ class HelpdeskTicketExtension(models.Model):
 
     @api.onchange('partner_id')
     def _onchange_partner_id_extended(self):
-        if self.partner_id:
+        if self.partner_id and self.partner_id.x_first_name:
             self.partner_street = self.partner_id.street
             self.partner_house_number = self.partner_id.x_house_number
             self.partner_phone = self.partner_id.phone
@@ -67,20 +67,25 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_id.x_first_name = self.partner_first_name
             self.partner_id.x_contact_trusted = self.partner_trusted
             self.partner_id.email = self.partner_email
+            self.partner_id.zip = self.partner_zip
+            self.partner_id.city = self.partner_city
         else:
             if self.partner_name:
                 self.partner_id = self.env['res.partner'].create({
-                    'name' : self.partner_name,
-                    'street' : self.partner_street,
-                    'x_house_number' : self.partner_house_number,
-                    'phone' : self.partner_phone,
-                    'x_data_protection' : self.partner_data_protection,
+                    'name': self.partner_name,
+                    'street': self.partner_street,
+                    'x_house_number': self.partner_house_number,
+                    'phone': self.partner_phone,
+                    'x_data_protection': self.partner_data_protection,
                     'x_first_name': self.partner_first_name,
                     'x_contact_trusted': self.partner_trusted,
-                    'email' : self.partner_email
+                    'email': self.partner_email,
+                    'city': self.partner_city,
+                    'zip' : self.partner_zip
                 })
 
     def write(self, values):
         res = super(HelpdeskTicketExtension, self).write(values)
         self.save_customer_info()
         return res
+
