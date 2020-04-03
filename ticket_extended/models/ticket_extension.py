@@ -13,7 +13,7 @@ class HelpdeskTicketExtension(models.Model):
     partner_first_name = fields.Char(string='Vorname', tracking=True, required=True, store=True)
     partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True,
                                      store=True)
-    partner_zip = fields.Char(string='Vorname', tracking=True, required=True, store=True)
+    partner_zip = fields.Char(string='PLZ', tracking=True, required=True, store=True)
     partner_city = fields.Char(string="Ort", tracking=True, required=True, store=True)
 
 
@@ -68,7 +68,7 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_id.x_contact_trusted = self.partner_trusted
             self.partner_id.email = self.partner_email
         else:
-            self.partner_id.write({
+            self.partner_id = self.env['partner_id'].create({
                 'street' : self.partner_street,
                 'x_house_number' : self.partner_house_number,
                 'phone' : self.partner_phone,
