@@ -69,6 +69,7 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_id.email = self.partner_email
         else:
             self.partner_id = self.env['res.partner'].create({
+                'name' : self.partner_name,
                 'street' : self.partner_street,
                 'x_house_number' : self.partner_house_number,
                 'phone' : self.partner_phone,
