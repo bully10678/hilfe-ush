@@ -84,5 +84,6 @@ class HelpdeskTicketExtension(models.Model):
     def create(self, values):
         res = super(HelpdeskTicketExtension, self).create(values)
         self.save_customer_info()
+        _logger.warning("CALLED CREATE")
         return res
 
