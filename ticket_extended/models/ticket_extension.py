@@ -13,8 +13,8 @@ class HelpdeskTicketExtension(models.Model):
     partner_first_name = fields.Char(string='Vorname', tracking=True, required=True, store=True)
     partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True,
                                      store=True)
-    partner_zip = fields.Char(string='PLZ', tracking=True, required=True, store=True)
-    partner_city = fields.Char(string="Ort", tracking=True, required=True, store=True)
+    partner_zip = fields.Char(string='PLZ', tracking=True, store=True)
+    partner_city = fields.Char(string="Ort", tracking=True, store=True)
 
 
     @api.model
