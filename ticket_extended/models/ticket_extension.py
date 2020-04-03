@@ -13,6 +13,8 @@ class HelpdeskTicketExtension(models.Model):
     partner_first_name = fields.Char(string='Vorname', tracking=True, required=True, store=True)
     partner_trusted = fields.Boolean(string='Kontakt vertrauenswürdig/geprüft', tracking=True, required=True,
                                      store=True)
+    partner_zip = fields.Char(string='Vorname', tracking=True, required=True, store=True)
+    partner_city = fields.Char(string="Ort", tracking=True, required=True, store=True)
 
 
     @api.model
@@ -53,15 +55,28 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_data_protection = self.partner_id.x_data_protection
             self.partner_first_name = self.partner_id.x_first_name
             self.partner_trusted = self.partner_id.x_contact_trusted
+            self.partner_zip = self.partner_id.zip
+            self.partner_city = self.partner_id.city
 
     def save_customer_info(self):
-        self.partner_id.street = self.partner_street
-        self.partner_id.x_house_number = self.partner_house_number
-        self.partner_id.phone = self.partner_phone
-        self.partner_id.x_data_protection = self.partner_data_protection
-        self.partner_id.x_first_name = self.partner_first_name
-        self.partner_id.x_contact_trusted = self.partner_trusted
-        self.partner_id.email = self.partner_email
+        if self.partner_id:
+            self.partner_id.street = self.partner_street
+            self.partner_id.x_house_number = self.partner_house_number
+            self.partner_id.phone = self.partner_phone
+            self.partner_id.x_data_protection = self.partner_data_protection
+            self.partner_id.x_first_name = self.partner_first_name
+            self.partner_id.x_contact_trusted = self.partner_trusted
+            self.partner_id.email = self.partner_email
+        else:
+            self.partner_id.write({
+                'street' : self.partner_street,
+                'x_house_number' : self.partner_house_number,
+                'phone' : self.partner_phone,
+                'x_data_protection' : self.partner_data_protection,
+                'x_first_name': self.partner_first_name,
+                'x_contact_trusted': self.partner_trusted,
+                'email' : self.partner_email
+            })
 
     def write(self, values):
         res = super(HelpdeskTicketExtension, self).write(values)
