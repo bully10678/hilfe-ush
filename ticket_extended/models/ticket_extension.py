@@ -68,22 +68,20 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_id.x_contact_trusted = self.partner_trusted
             self.partner_id.email = self.partner_email
         else:
-            #if self.partner_name:
-            _logger.warning("CALLED CREATE")
-            self.partner_id = self.env['res.partner'].create({
-                'name' : self.partner_name,
-                'street' : self.partner_street,
-                'x_house_number' : self.partner_house_number,
-                'phone' : self.partner_phone,
-                'x_data_protection' : self.partner_data_protection,
-                'x_first_name': self.partner_first_name,
-                'x_contact_trusted': self.partner_trusted,
-                'email' : self.partner_email
-            })
+            if self.partner_name:
+                self.partner_id = self.env['res.partner'].create({
+                    'name': self.partner_name,
+                    'street': self.partner_street,
+                    'x_house_number': self.partner_house_number,
+                    'phone': self.partner_phone,
+                    'x_data_protection': self.partner_data_protection,
+                    'x_first_name': self.partner_first_name,
+                    'x_contact_trusted': self.partner_trusted,
+                    'email': self.partner_email
+                })
 
-    @api.model
-    def create(self, values):
+    def write(self, values):
+        res = super(HelpdeskTicketExtension, self).write(values)
         self.save_customer_info()
-        res = super(HelpdeskTicketExtension, self).create(values)
         return res
 
