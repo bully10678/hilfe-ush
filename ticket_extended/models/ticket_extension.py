@@ -81,6 +81,6 @@ class HelpdeskTicketExtension(models.Model):
                 })
 
     def write(self, values):
-        self.save_customer_info()
         res = super(HelpdeskTicketExtension, self).write(values)
+        self.save_customer_info()
         return res
