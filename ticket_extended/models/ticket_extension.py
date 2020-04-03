@@ -80,7 +80,9 @@ class HelpdeskTicketExtension(models.Model):
                     'email' : self.partner_email
                 })
 
-    def write(self, values):
+    @api.model
+    def create(self, values):
+        res = super(HelpdeskTicketExtension, self).create(values)
         self.save_customer_info()
-        res = super(HelpdeskTicketExtension, self).write(values)
         return res
+
