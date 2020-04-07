@@ -53,7 +53,7 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_house_number = self.partner_id.x_house_number
             self.partner_phone = self.partner_id.phone
             self.partner_data_protection = self.partner_id.x_data_protection
-            self.partner_first_name = self.partner_id.w
+            self.partner_first_name = self.partner_id.x_first_name
             self.partner_trusted = self.partner_id.x_contact_trusted
             self.partner_zip = self.partner_id.zip
             self.partner_city = self.partner_id.city
@@ -71,7 +71,7 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_id.city = self.partner_city
         else:
             if self.partner_name:
-                self.partner_id = self.env['res.partner'].sudo().create({
+                new_id = self.env['res.partner'].create({
                     'name': self.partner_name,
                     'street': self.partner_street,
                     'x_house_number': self.partner_house_number,
@@ -83,8 +83,8 @@ class HelpdeskTicketExtension(models.Model):
                     'city': self.partner_city,
                     'zip' : self.partner_zip
                 })
-                # if new_id.name == self.partner_name:
-                #     self.partner_id = new_id
+                if new_id.name == self.partner_name:
+                    self.partner_id = new_id
 
     def write(self, values):
         res = super(HelpdeskTicketExtension, self).write(values)
