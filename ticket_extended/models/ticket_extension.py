@@ -53,7 +53,7 @@ class HelpdeskTicketExtension(models.Model):
             self.partner_house_number = self.partner_id.x_house_number
             self.partner_phone = self.partner_id.phone
             self.partner_data_protection = self.partner_id.x_data_protection
-            self.partner_first_name = self.partner_id.w
+            self.partner_first_name = self.partner_id.x_first_name
             self.partner_trusted = self.partner_id.x_contact_trusted
             self.partner_zip = self.partner_id.zip
             self.partner_city = self.partner_id.city
