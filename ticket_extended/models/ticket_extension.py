@@ -107,14 +107,7 @@ class HelpdeskTicketExtension(models.Model):
             if 'partner_name' in vals and 'partner_email' in vals and 'partner_id' not in vals:
                 vals['partner_id'] = self.env['res.partner'].create({
                     'name': vals['partner_name'],
-                    'street': vals['partner_street'],
-                    'x_house_number': vals['partner_house_number'],
-                    'phone': vals['partner_phone'],
-                    'x_data_protection': vals['partner_data_protection'],
-                    'x_first_name': vals['partner_first_name'],
                     'email': vals['partner_email'],
-                    'city': vals['partner_city'],
-                    'zip' : vals['partner_zip']
                 }).id
 
         # determine partner email for ticket with partner but no email given
