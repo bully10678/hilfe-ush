@@ -83,8 +83,11 @@ class HelpdeskTicketExtension(models.Model):
                     'city': self.partner_city,
                     'zip' : self.partner_zip
                 })
+                _logger.warning(new_id)
+                _logger.warning(new_id.name)
                 if new_id.name == self.partner_name:
                     self.partner_id = new_id
+                _logger.warning(self.partner_id)
 
     def write(self, values):
         res = super(HelpdeskTicketExtension, self).write(values)
