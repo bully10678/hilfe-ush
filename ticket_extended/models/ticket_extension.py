@@ -112,7 +112,6 @@ class HelpdeskTicketExtension(models.Model):
                     'phone': vals['partner_phone'],
                     'x_data_protection': vals['partner_data_protection'],
                     'x_first_name': vals['partner_first_name'],
-                    'x_contact_trusted': vals['partner_trusted'],
                     'email': vals['partner_email'],
                     'city': vals['partner_city'],
                     'zip' : vals['partner_zip']
